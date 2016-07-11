@@ -1,0 +1,5 @@
+com/nilge/hadoop/loadJsonData/property/Business.class
+com/nilge/hadoop/loadJsonData/mapreduce/LoadJsonData$JsonMapper.class
+com/nilge/hadoop/loadJsonData/mapreduce/LoadJsonData.class
+com/nilge/hadoop/loadJsonData/mapreduce/LoadJsonData$JsonReducer.class
+com/nilge/hadoop/loadJsonData/property/InfoWritable.class
