@@ -9,7 +9,7 @@ hadoop fs -mkdir -p project/src_data/user
 hadoop fs -mkdir -p project/src_data/review
 hadoop fs -mkdir -p project/src_data/business_sample
 
-cd /home/1604xiangyu/source_data/json_data/
+cd ~/source_data/json_data/
 
 hadoop fs -put yelp_training_set_business.json project/src_data/business
 hadoop fs -put yelp_training_set_checkin.json project/src_data/checkin
