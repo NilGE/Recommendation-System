@@ -25,14 +25,17 @@ public class LoadJsonData {
     public static class JsonMapper extends Mapper<Object, Text, Text, InfoWritable> {
         private final InfoWritable info = new InfoWritable();
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException{
-            try {                
+            try {
+                String[] tuples = value.toString().split("\\n");
                 Gson gson = new Gson();
-                JsonReader reader = new JsonReader(new StringReader(value.toString()));
-                reader.setLenient(true);
-                Business business = gson.fromJson(reader, Business.class);
-                info.SetName(business.name);
-                info.SetStars(business.stars);
-                context.write(new Text(business.city), info);
+                for (String tuple : tuples) {
+                    JsonReader reader = new JsonReader(new StringReader(tuple));
+                    reader.setLenient(true);
+                    Business business = gson.fromJson(reader, Business.class);
+                    info.SetName(business.name);
+                    info.SetStars(business.stars);
+                    context.write(new Text(business.city), info);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
