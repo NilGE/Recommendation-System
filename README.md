@@ -1,5 +1,7 @@
 # Recommendation-System
 
+
+##Import Json Data
 ```
 hadoop fs -mkdir -p project/src_data/business
 hadoop fs -mkdir -p project/src_data/checkin
