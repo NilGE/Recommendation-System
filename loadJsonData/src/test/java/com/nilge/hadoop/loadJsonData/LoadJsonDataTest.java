@@ -1,6 +1,9 @@
 package com.nilge.hadoop.loadJsonData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -9,10 +12,12 @@ import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.matchers.EndsWith;
 
 import com.nilge.hadoop.loadJsonData.mapreduce.LoadJsonData.JsonMapper;
 import com.nilge.hadoop.loadJsonData.mapreduce.LoadJsonData.JsonReducer;
 import com.nilge.hadoop.loadJsonData.property.InfoWritable;
+import com.sun.tools.classfile.InnerClasses_attribute.Info;
 
 public class LoadJsonDataTest {
     MapDriver<Object, Text, Text, InfoWritable> mapDriver;
@@ -43,5 +48,21 @@ public class LoadJsonDataTest {
                 + "\"type\": \"business\"}"));
         mapDriver.withOutput(new Text("Peoria"), info);
         mapDriver.runTest();
+    }
+    
+    @Test
+    public void testReducer() throws IOException {
+        List<InfoWritable> values = new ArrayList<InfoWritable>();
+        InfoWritable info1 = new InfoWritable();
+        info1.SetName("name1");
+        info1.SetStars("5.0");
+        InfoWritable info2 = new InfoWritable();
+        info2.SetName("name2");
+        info2.SetStars("4.9");
+        values.add(info1);
+        values.add(info2);
+        reduceDriver.withInput(new Text("Los Angeles"), values);
+        reduceDriver.withOutput(new Text("Los Angeles"), new Text("5.0"));
+        reduceDriver.withOutput(new Text("Los Angeles"), new Text("4.9"));
     }
 }
